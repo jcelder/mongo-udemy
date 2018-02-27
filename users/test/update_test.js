@@ -7,7 +7,7 @@ describe('Updating a user record', () => {
   let josh
 
   beforeEach(async () => {
-    josh = new User({ name: 'Josh' })
+    josh = new User({ name: 'Josh', postCount: 0 })
     await josh.save()
   })
 
@@ -58,5 +58,11 @@ describe('Updating a user record', () => {
     const users = await User.find({})
     expect(users.length).to.equal(1)
     expect(users[0].name).to.equal('Jon')
+  })
+
+  it('A user can have their post count incremented by 1', async () => {
+    await User.update({ name: 'Josh' }, { $inc: { postCount: 1 } })
+    const users = await User.find({})
+    expect(users[0].postCount).to.equal(1)
   })
 })
