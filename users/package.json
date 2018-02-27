@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --require babel-core/register --require babel-polyfill --exit"
+    "test": "mocha --require babel-core/register --require babel-polyfill --exit",
+    "test:watch": "nodemon -r babel-register -r babel-polyfill --exec 'mocha --exit'"
   },
   "keywords": [],
   "author": "",
