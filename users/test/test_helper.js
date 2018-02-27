@@ -1,6 +1,8 @@
 /* eslint-env node, mocha */
 import mongoose from 'mongoose'
 
+mongoose.Promise = global.Promise
+
 before(async () => {
   const connString = 'mongodb://localhost/users_test'
 
@@ -13,5 +15,11 @@ before(async () => {
 })
 
 beforeEach(async () => {
-  await mongoose.connection.dropCollection('users')
+  try {
+    await mongoose.connection.dropCollection('users')
+  } catch (e) {
+    if (e.message !== 'ns not found') {
+      throw e
+    }
+  }
 })
